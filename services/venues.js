@@ -1,11 +1,25 @@
 import axios from 'axios';
+import {fireDb} from '~/plugins/firebase.js'
 
 class Venues {
 
     async getAll () {
-        let response = await axios.get('https://api.hubapi.com/hubdb/api/v2/tables/2031243/rows?portalId=496638');
-        return response.data.objects.map(item => {
-            return Venues.buildVenues(item);
+        axios.get(`https://firestore.googleapis.com/v1/projects/tinder-197af/databases/(default)/documents/venues`)
+        .then(response => { 
+         console.log(response); 
+        })
+        .catch(error => { 
+            console.log(error); 
+        });
+    }
+
+    static buildVenues(item) {
+        return new Venue({
+            id: item.id,
+            name: item.values[1],
+            street: item.street[2],
+            city: item.values[3],
+            type: item.values[4],
         })
     }
 
@@ -15,16 +29,12 @@ export default new Venues;
 
 class Venue {
 
-    constructor ({id, name, adress, city, capacity, image, description, location, slug}) {
+    constructor ({id, name, street, city, type}) {
         this.id = id;
         this.name = name;
-        this.adress = adress;
-        this.city = city;
-        this.capacity = capacity;
-        this.image = image.url;
-        this.description = description;
-        this.location = location;
-        this.slug = slug;
+        this.street = street;
+        this.city = city
+        this.type = type
     }
 
 }
