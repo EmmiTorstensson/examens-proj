@@ -1,0 +1,22 @@
+{
+  "name": "examen-proj",
+  "version": "1.0.0",
+  "description": "My dandy Nuxt.js project",
+  "author": "emmitorstensson",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.9.3",
+    "bootstrap": "^4.4.1",
+    "firebase": "^7.7.0",
+    "nuxt": "^2.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.3"
+  }
+}
