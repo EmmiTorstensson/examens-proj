@@ -1,10 +1,8 @@
 <template>
   <div class="container">
       <h1>Tjena!</h1> 
-      <h2 v-for="venue in venues" :key="venue.name">
-        {{ venue.name }}
-      </h2>
-      <button @click="randomNum">Num</button>
+      <h3>{{ venue.name }}</h3>
+      <button @click="randomVenue">Venue</button>
   </div>
 </template>
 
@@ -15,7 +13,7 @@ export default {
     data() {
       return {
         venues: [],
-        venue:[]
+        venue: []
       }
     },
     created () {
@@ -32,13 +30,13 @@ export default {
             }
             this.venues.push(data)
           })
-        })
+        }).then(this.randomVenue.bind(this))
     },
     methods: {
-      randomNum () {
-        const num = Math.ceil(Math.random()*2)
-        console.log(num);
-      }
+        randomVenue () {
+          var chosenNumber = Math.floor(Math.random() * this.venues.length);
+          this.venue = this.venues[chosenNumber];
+        }
     }
 }
 
