@@ -1,30 +1,45 @@
 <template>
   <div class="container">
       <h1>Tjena!</h1> 
-      <p></p>
+      <h2 v-for="venue in venues" :key="venue.name">
+        {{ venue.name }}
+      </h2>
+      <button @click="randomNum">Num</button>
   </div>
 </template>
 
 <script>
 import {fireDb} from '~/plugins/firebase.js';
-import Venues from '@/services/Venues';
 
 export default {
-  async asyncData () {
-        console.log("start")
-        let venues = fireDb.collection('venues')
-        try {
-            var allVenuesSnapShot = await venues .get();
-            allVenuesSnapShot.forEach(doc => {
-            console.log(doc.id, '=>', doc.data().name);
-        });
-        console.log("end")
-        } catch (err) {
-            return {
-                venues: [],
-            }
-        }
+    data() {
+      return {
+        venues: [],
+        venue:[]
+      }
     },
+    created () {
+      fireDb.collection('venues').get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            console.log(doc);
+            const data = {
+              'id': doc.id,
+              'veuneID': doc.data().veuneID,
+              'name': doc.data().name,
+              'city': doc.data().city,
+              'street': doc.data().street
+            }
+            this.venues.push(data)
+          })
+        })
+    },
+    methods: {
+      randomNum () {
+        const num = Math.ceil(Math.random()*2)
+        console.log(num);
+      }
+    }
 }
 
 </script>

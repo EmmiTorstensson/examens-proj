@@ -1,28 +1,28 @@
-import axios from 'axios';
-import {fireDb} from '~/plugins/firebase.js'
+import { fireDb } from '~/plugins/firebase.js'
 
 class Venues {
 
     async getAll () {
-        axios.get(`https://firestore.googleapis.com/v1/projects/tinder-197af/databases/(default)/documents/venues`)
-        .then(response => { 
-         console.log(response); 
-        })
-        .catch(error => { 
-            console.log(error); 
-        });
-    }
+        let venuesRef = fireDb.collection('venues')
+      
+        var allVenuesSnapShot = await venuesRef.get();
 
-    static buildVenues(item) {
+        allVenuesSnapShot.doc.forEach(doc => {
+            return doc.map(item => {
+                    return Venues.buildVenues(item);
+                })
+        })
+    }
+    
+    static buildVenues(doc) {
         return new Venue({
-            id: item.id,
-            name: item.values[1],
-            street: item.street[2],
-            city: item.values[3],
-            type: item.values[4],
+            id: doc.id,
+            name: doc.name,
+            street: doc.street,
+            city: doc.city,
+            type: doc.type,
         })
     }
-
 }
 
 export default new Venues;
