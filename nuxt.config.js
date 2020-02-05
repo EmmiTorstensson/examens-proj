@@ -28,7 +28,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/firebase.js'
+    '~/plugins/firebase.js',
+    { src: '~/plugins/socialSharing', mode: 'client' }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -48,6 +49,7 @@ export default {
     /*
     ** You can extend webpack config here
     */
+   vendor: ['vue-social-sharing'],
     extend (config, ctx) {
     }
   }

@@ -14,7 +14,8 @@
     "@nuxtjs/axios": "^5.9.3",
     "bootstrap-vue": "^2.4.0",
     "firebase": "^7.7.0",
-    "nuxt": "^2.0.0"
+    "nuxt": "^2.0.0",
+    "vue-social-sharing": "^2.4.7"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3"
