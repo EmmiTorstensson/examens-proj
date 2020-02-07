@@ -1,8 +1,26 @@
 <template>
   <div class="container">
-    <div class="block-1"></div>
-    <div class="block-2"></div>
+
+    <div class="block-1">
+      <h1 class="my-header">FANCY NAME</h1>
+    </div>
+
+    <div class="block-2">
+      <div class="block-2-inner-container">
+        <div
+            class="venue-image" 
+            :style="{ backgroundImage: 'url(' +  venue.image + ')'}">
+        </div>
+
+        <div class="text-content-container">
+          <div class="venue-name">{{ venue.name }}</div>
+          <div class="venue-street"> {{ venue.street }}</div>
+        </div>
+      </div>
+    </div>
+
     <div class="block-3"></div>
+
     <social-sharing @open="open()" @change="change()" @close="close()">
     </social-sharing>
   </div>
@@ -20,7 +38,7 @@ export default {
       }
     },
     created () {
-      fireDb.collection('venues').get()
+       fireDb.collection('venues').get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
             console.log(doc);
@@ -52,26 +70,77 @@ export default {
 <style>
 .container {
   height: 100vh;
-  padding-top: 10px;
   background-color: aliceblue;
 }
 .block-1{
-  height: 50px;
+  height: 15vh;
   background-color: aqua;
   top: 0;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.block-2{
-  height: auto;
-  background-color: lavender;
-  width: 100%;
-}
+
 .block-3{
-  height: 50px;
+  height: 15vh;
   width: 100%;
   background-color: pink;
   bottom: 0;  
 }
+
+/* BLOCK 1 */ 
+
+.my-header {
+  font-size: 3em;
+}
+
+
+
+
+/* BLOCK 2 */ 
+
+.block-2{
+  height: 70vh;
+  background-color: lavender;
+  width: 100%;
+}
+
+.block-2-inner-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.venue-image {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    z-index: 1
+  }
+.text-content-container {
+  width: 100%;
+  height: 20%;
+  z-index: 2;
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+}
+.venue-name {
+  font-size: 2em;
+  margin-left: 20px;
+  font-weight: bold;
+}
+
+
+
+/* BLOCK 3 */ 
+
+
 
 /*
 .headline {
