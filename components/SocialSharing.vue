@@ -1,7 +1,7 @@
 <template>
      <social-sharing url="https://vuejs.org/"
-                      title="The Progressive JavaScript Framework"
-                      description="Intuitive, Fast and Composable MVVM for building interactive interfaces."
+                      title="venueTitle"
+                      description="venueStreet"
                       quote="Vue is a progressive framework for building user interfaces."
                       hashtags="vuejs,javascript,framework"
                       twitter-user="vuejs"
@@ -23,3 +23,11 @@
 </social-sharing>
 </template>
 
+<script>
+export default {
+  props: [
+    'venueTitle',
+    'venueStreet'
+  ]
+}
+</script>

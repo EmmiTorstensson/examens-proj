@@ -29,12 +29,17 @@
             </div>
 
           </div>
+
+          <div class="close-info" v-show="showInfo">
+            <img src="~/assets/images/cancel.png" class="cancel-icon"  @click="showInfo = !showInfo">
+          </div>
+
         </div>
       </div>
 
       <div class="second-look-container" v-show="showInfo">
         <div class="second-look-inner-container">
-          <div class="info-name"> {{ venue.name }}</div>
+          <div class="info-name"> {{ venue.name }} </div>
           <div class="info-street"> {{ venue.street }}</div>
           <div class="info-district"> {{ venue.district }}</div>
           <div class="info-description"> {{ venue.description }}</div>
@@ -47,10 +52,7 @@
       </div>
 
 
-
-
-
-      <social-sharing @open="open()" @change="change()" @close="close()">
+      <social-sharing @open="open()" @change="change()" @close="close()" :venue-title="venue.name">
       </social-sharing>
     </div>
 
@@ -187,6 +189,17 @@ export default {
   height: .8em;
 }
 
+.close-info {
+  position: absolute;
+  bottom: -1rem;
+  z-index: 2;
+  right: 20px;
+}
+
+.cancel-icon {
+  height: 2rem;
+  top:0
+}
 
 /* BLOCK 3 */ 
 
