@@ -1,28 +1,72 @@
 <template>
   <div class="container">
+    <div class="first-look-container" v-if="venues.length > 0">
+      <div class="block-1 my-header">
+        TRÄFF
+      </div>
 
-    <div class="block-1">
-      <h1 class="my-header">FANCY NAME</h1>
-    </div>
+      <div class="block-2">
+        <div class="block-2-inner-container">
+            <div
+                class="venue-image" 
+                :style="{ backgroundImage: 'url(' +  venue.image + ')'}">
+            </div>
+            <div>
+              <img src="~/assets/images/info-icon.png" class="info-icon">
+            </div>
 
-    <div class="block-2">
-      <div class="block-2-inner-container">
-        <div
-            class="venue-image" 
-            :style="{ backgroundImage: 'url(' +  venue.image + ')'}">
-        </div>
 
-        <div class="text-content-container">
-          <div class="venue-name">{{ venue.name }}</div>
-          <div class="venue-street"> {{ venue.street }}</div>
+          <div class="text-content-container" v-show="!showInfo">
+
+            <div class="venue-name">{{ venue.name }}  
+              <button>
+                <img src="~/assets/images/info-icon.png" class="info-icon" @click="showInfo = !showInfo">
+              </button>
+            </div>
+
+            <div class="venue-street">
+              <img src="~/assets/images/pin.png" class="info-icon"> {{ venue.street }}
+            </div>
+
+          </div>
         </div>
       </div>
+
+      <div class="second-look-container" v-show="showInfo">
+        <div class="second-look-inner-container">
+          <div class="info-name"> {{ venue.name }}</div>
+          <div class="info-street"> {{ venue.street }}</div>
+          <div class="info-district"> {{ venue.district }}</div>
+          <div class="info-description"> {{ venue.description }}</div>
+        </div>
+      </div>
+
+      <div class="block-3">
+        <img src="~/assets/images/correct.png" class="cta-icon"> 
+        <img src="~/assets/images/no-icon.png" class="cta-icon" @click="randomVenue"> 
+      </div>
+
+
+
+
+
+      <social-sharing @open="open()" @change="change()" @close="close()">
+      </social-sharing>
     </div>
 
-    <div class="block-3"></div>
+    <div class="empty-array" v-else>
+      <div class="block-1 my-header">
+        TRÄFF
+      </div>
 
-    <social-sharing @open="open()" @change="change()" @close="close()">
-    </social-sharing>
+      <div class="empty-array-inner-container">
+        <div class="center-text">
+          <div class="empty-array-text">Slut på lista :(</div>
+          <div class="start-over">Börja om!</div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </template>
 
@@ -34,7 +78,8 @@ export default {
     data() {
       return {
         venues: [],
-        venue: []
+        venue: [],
+        showInfo: false
       }
     },
     created () {
@@ -44,11 +89,11 @@ export default {
             console.log(doc);
             const data = {
               'id': doc.id,
-              'veuneID': doc.data().veuneID,
               'name': doc.data().name,
-              'city': doc.data().city,
+              'district': doc.data().district,
               'street': doc.data().street,
-              'image': doc.data().imageURL
+              'image': doc.data().imageURL,
+              'description': doc.data().description
             }
             this.venues.push(data)
           })
@@ -58,6 +103,7 @@ export default {
         randomVenue () {
           var chosenNumber = Math.floor(Math.random() * this.venues.length);
           this.venue = this.venues[chosenNumber];
+          this.venues.splice(chosenNumber, 1)
         }
     },
     components: {
@@ -68,13 +114,12 @@ export default {
 </script>
 
 <style>
-.container {
+.first-look-container {
   height: 100vh;
-  background-color: aliceblue;
 }
+
 .block-1{
-  height: 15vh;
-  background-color: aqua;
+  height: 10vh;
   top: 0;
   width: 100%;
   display: flex;
@@ -82,27 +127,18 @@ export default {
   justify-content: center;
 }
 
-.block-3{
-  height: 15vh;
-  width: 100%;
-  background-color: pink;
-  bottom: 0;  
-}
-
 /* BLOCK 1 */ 
 
 .my-header {
   font-size: 3em;
+
 }
-
-
 
 
 /* BLOCK 2 */ 
 
 .block-2{
-  height: 70vh;
-  background-color: lavender;
+  height: 75vh;
   width: 100%;
 }
 
@@ -124,22 +160,99 @@ export default {
   }
 .text-content-container {
   width: 100%;
-  height: 20%;
   z-index: 2;
   position: absolute;
-  bottom: 0;
+  bottom: 20px;
   color: #fff;
+
 }
 .venue-name {
   font-size: 2em;
   margin-left: 20px;
+  margin-right: 20px;
   font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
+.venue-street  {
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 1.5em;
+}
+
+.info-icon {
+  width: .8em;
+  height: .8em;
+}
 
 
 /* BLOCK 3 */ 
 
+
+.block-3{
+  height: 15vh;
+  width: 100%;
+  bottom: 0;  
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.cta-icon {
+  height: 4.3rem;
+}
+
+/* SECOND LOOK */
+
+.second-look-inner-container {
+  padding: 20px;
+}
+
+.info-name {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.info-street {
+  font-size: 1.2rem;
+}
+
+
+.info-district {
+  font-size: 1.2rem;
+  font-style: italic;
+  margin-bottom: 15px;
+}
+
+/* EMPTY ARRAY */
+
+.empty-array {
+  width: 100%;
+  height: 100vh;
+}
+.empty-array-inner-container {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.empty-array-text {
+  width: 100%;
+}
+.start-over {
+  width: 100%;
+  color: blue
+}
+
+.start-over:hover {
+  color: pink;
+}
+
+.center-text {
+  text-align: center;
+}
 
 
 /*
