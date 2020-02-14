@@ -48,7 +48,7 @@
 
       <div class="block-3">
         <img src="~/assets/images/correct.png" class="cta-icon"> 
-        <img src="~/assets/images/no-icon.png" class="cta-icon" @click="randomVenue"> 
+        <img src="~/assets/images/no-icon.png" class="cta-icon" @click="newVenue"> 
       </div>
 
 
@@ -105,7 +105,15 @@ export default {
         randomVenue () {
           var chosenNumber = Math.floor(Math.random() * this.venues.length);
           this.venue = this.venues[chosenNumber];
-          this.venues.splice(chosenNumber, 1)
+        },
+        newVenue () {
+          this.randomVenue()
+
+          for( var i = 0; i < this.venues.length; i++){ 
+              if ( this.venues[i].name === this.venue.name) {
+                this.venues.splice(i, 1); 
+            }
+          }
         }
     },
     components: {
@@ -267,108 +275,5 @@ export default {
   text-align: center;
 }
 
-
-/*
-.headline {
-  text-align: center
-}
-.first-look-container {
-    max-width: 500px;
-    height: auto;
-    margin: 0 auto;
-    display: flex;
-    position: relative;
-  }
-.first-look-image-container {
-    min-width: 100%;
-    height: 90%;
-    margin: 0 auto;
-    display: flex;
-    position: relative;
-  }
-.venue-image {
-    height: 100%;
-    width: 100%;
-    background-position: center;
-    background-size: cover;
-    border-radius: 10px;
-    z-index: 1;
-    position: absolute;
-  }
-.venue-info {
-  z-index: 2;
-  position: absolute;
-  bottom: 0;
-  color: #fff;
-}
-
-.first-look-btn-container {
-  position: absolute;
-  bottom: 0;
-  height: 10%;
-  width:100%;
-  background-color: pink;
-  padding-top: 10px;
-}
-
-.first-look-btn-inner-container {
-  background-color: aquamarine;
-  height: 100%;
-}
-
-.btn-circle.btn-xl {
-  width: 70px;
-  height: 100%;
-  padding: 10px 16px;
-  font-size: 24px;
-  line-height: 1.33;
-  border-radius: 35px;
-}
-
-/* BUTTON */ 
-/*
-.round-button {
-	width:10%;
-}
-.round-button-circle {
-	width: 100%;
-	height:0;
-	padding-bottom: 100%;
-  border-radius: 50%;
-  overflow:hidden;
-  background:red; 
-}
-.round-button-circle:hover {
-	background:rgb(204, 1, 1);
-  color: #fff 
-}
-.round-button a {
-  display:block;
-	float:left;
-	width:100%;
-	padding-top:50%;
-  padding-bottom:50%;
-	line-height:1em;
-	margin-top:-0.5em;
-    
-	text-align:center;
-	color:#e2eaf3;
-    font-family:Verdana;
-    font-size:1.2em;
-    font-weight:bold;
-    text-decoration:none;
-}
-
-@media (max-width: 767px) {
-  .container {
-    width: 100%;
-    height: 100%;
-  }
-  .first-look-container {
-    height: 100vh;
-  }
-
-}
-*/
 </style>
 
