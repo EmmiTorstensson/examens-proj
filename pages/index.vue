@@ -52,7 +52,12 @@
       </div>
 
 
-      <social-sharing @open="open()" @change="change()" @close="close()" :venue-title="venue.name">
+      <social-sharing 
+        @open="open()" 
+        @change="change()" 
+        @close="close()" 
+        :venueName="venue.name"
+        :venueStreet="venue.street">
       </social-sharing>
     </div>
 
@@ -81,7 +86,7 @@ export default {
       return {
         venues: [],
         venue: [],
-        showInfo: false
+        showInfo: false, 
       }
     },
     created () {

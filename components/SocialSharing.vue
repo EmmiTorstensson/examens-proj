@@ -1,11 +1,9 @@
 <template>
-     <social-sharing url="https://vuejs.org/"
-                      title="venueTitle"
-                      description="venueStreet"
-                      quote="Vue is a progressive framework for building user interfaces."
-                      hashtags="vuejs,javascript,framework"
-                      twitter-user="vuejs"
-                      inline-template>
+     <social-sharing 
+        :title="'Vi ses på ' + venueName +'!'"
+        :description="venueName +', ' + venueStreet + '.'"
+        quote="Hej! Vad tror du om att träffas Här? "
+        inline-template>
   <div>
       <network network="email">
           <i class="fa fa-envelope"></i> Email
@@ -26,7 +24,7 @@
 <script>
 export default {
   props: [
-    'venueTitle',
+    'venueName',
     'venueStreet'
   ]
 }
