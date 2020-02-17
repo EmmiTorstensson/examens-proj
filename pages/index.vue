@@ -37,7 +37,7 @@
         </div>
       </div>
 
-      <div class="second-look-container" v-show="showInfo">
+      <div class="second-look-container" v-show="showInfo" transition="fade">
         <div class="second-look-inner-container">
           <div class="info-name"> {{ venue.name }} </div>
           <div class="info-street"> {{ venue.street }}</div>
@@ -46,10 +46,12 @@
         </div>
       </div>
 
-      <div class="block-3">
-        <img src="~/assets/images/correct.png" class="cta-icon"> 
-        <img src="~/assets/images/no-icon.png" class="cta-icon" @click="newVenue"> 
-      </div>
+      <transition name="bounce">
+        <div class="block-3">
+          <img src="~/assets/images/correct.png" class="cta-icon"> 
+          <img src="~/assets/images/no-icon.png" class="cta-icon" @click="newVenue"> 
+        </div>
+      </transition>
 
 
       <social-sharing 
@@ -228,12 +230,14 @@ export default {
 
 .cta-icon {
   height: 4.3rem;
+  transition: linear .25s
 }
 
 /* SECOND LOOK */
 
 .second-look-inner-container {
   padding: 20px;
+  transition: .5s
 }
 
 .info-name {
@@ -280,5 +284,19 @@ export default {
   text-align: center;
 }
 
+/* ANIMATION */ 
+
+.cta-icon:active {
+  animation: bounce 1s .5s;
+  transform: scale(0.80);
+}
+
+@keyframes bounce {
+  0% { transform: scale(1.1); opacity: 1 }
+  50% { transform: scale(1.6); opacity: .7 }
+  60% { transform: scale(0.6); opacity: 1 }
+  80% { transform: scale(0.95) }
+  100% { transform: scale(0.85) }
+}
 </style>
 

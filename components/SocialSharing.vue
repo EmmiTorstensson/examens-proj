@@ -2,7 +2,7 @@
      <social-sharing 
         :title="'Vi ses på ' + venueName +'!'"
         :description="venueName +', ' + venueStreet + '.'"
-        quote="Hej! Vad tror du om att träffas Här? "
+        quote="Hej! Vad tror du om att träffas Här?"
         inline-template>
   <div>
       <network network="email">
