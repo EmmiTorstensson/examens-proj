@@ -6,16 +6,11 @@
         inline-template>
   <div>
       <network network="email">
-          <i class="fa fa-envelope"></i> Email
+          <i class="fa fa-envelope"></i> <img src="~/assets/images/at.png" class="sharing-icon">
       </network>
-      <network network="facebook">
-        <i class="fa fa-facebook"></i> Facebook
-      </network>
-      <network network="sms">
-        <i class="fa fa-commenting-o"></i> SMS
-      </network>
+      <span class="social-sharing-text">eller</span>
       <network network="whatsapp">
-        <i class="fa fa-whatsapp"></i> Whatsapp
+        <i class="fa fa-whatsapp"></i> <img src="~/assets/images/whatsapp.png" class="sharing-icon">
       </network>
   </div>
 </social-sharing>
@@ -29,3 +24,13 @@ export default {
   ]
 }
 </script>
+
+<style>
+  .sharing-icon {
+    height: 50px;
+  }
+
+  .social-sharing-text {
+    margin: 0 1rem
+  }
+</style>

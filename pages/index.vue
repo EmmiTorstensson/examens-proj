@@ -39,28 +39,32 @@
 
       <div class="second-look-container" v-show="showInfo" transition="fade">
         <div class="second-look-inner-container">
-          <div class="info-name"> {{ venue.name }} </div>
+          <div class="info-name"> {{ venue.name }} <span>{{ venue.price }}</span></div>
           <div class="info-street"> {{ venue.street }}</div>
           <div class="info-district"> {{ venue.district }}</div>
           <div class="info-description"> {{ venue.description }}</div>
         </div>
       </div>
 
-      <transition name="bounce">
         <div class="block-3">
-          <img src="~/assets/images/correct.png" class="cta-icon"> 
+          <img src="~/assets/images/correct.png" class="cta-icon" v-b-modal="'my-modal'"> 
           <img src="~/assets/images/no-icon.png" class="cta-icon" @click="newVenue"> 
         </div>
-      </transition>
+      
 
+        <b-modal id="my-modal" hide-footer="true">
 
-      <social-sharing 
-        @open="open()" 
-        @change="change()" 
-        @close="close()" 
-        :venueName="venue.name"
-        :venueStreet="venue.street">
-      </social-sharing>
+          <div> Är du redo för en träff på <span class="bold">{{ venue.name }}</span>? </div>
+          <social-sharing 
+            @open="open()" 
+            @change="change()" 
+            @close="close()" 
+            :venueName="venue.name"
+            :venueStreet="venue.street">
+          </social-sharing>
+        </b-modal>
+    
+      
     </div>
 
     <div class="empty-array" v-else>
@@ -102,7 +106,8 @@ export default {
               'district': doc.data().district,
               'street': doc.data().street,
               'image': doc.data().imageURL,
-              'description': doc.data().description
+              'description': doc.data().description,
+              'price': doc.data().price
             }
             this.venues.push(data)
           })
@@ -243,6 +248,14 @@ export default {
 .info-name {
   font-weight: bold;
   font-size: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info-name span {
+  font-weight: lighter;
+  font-size: 1.3rem;
 }
 
 .info-street {
@@ -287,7 +300,7 @@ export default {
 /* ANIMATION */ 
 
 .cta-icon:active {
-  animation: bounce 1s .5s;
+  animation: bounce .5s .5s;
   transform: scale(0.80);
 }
 
@@ -298,5 +311,43 @@ export default {
   80% { transform: scale(0.95) }
   100% { transform: scale(0.85) }
 }
+
+/* MODAL */
+
+
+.modal-content {
+  transform: translateY(150px);
+  text-align: center;
+}
+
+.modal-header {
+  border-bottom: 0px;
+}
+.modal-body {
+  padding-bottom: 3rem;
+  font-size: 1.5rem;
+}
+
+.modal-body div:first-child {
+  margin-bottom: 2rem;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.modal-footer {
+  border-top: 0px;
+}
+
+
+/* LARG SCREEN */
+
+@media (min-width: 992px) {
+  .container, .container-sm, .container-md, .container-lg {
+      max-width: 600px;
+  }
+}
+
 </style>
 

@@ -29,7 +29,7 @@ export default {
   */
   plugins: [
     '~/plugins/firebase.js',
-    { src: '~/plugins/socialSharing', mode: 'client' }
+    { src: '~/plugins/socialSharing', mode: 'client' },
   ],
   /*
   ** Nuxt.js dev-modules
