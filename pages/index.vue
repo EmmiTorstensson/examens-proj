@@ -72,10 +72,13 @@
         TRÄFF
       </div>
 
+      <div><img src="~/assets/images/no-see.jpg" class="empty-array-img"></div>
+
       <div class="empty-array-inner-container">
-        <div class="center-text">
-          <div class="empty-array-text">Slut på lista :(</div>
-          <div class="start-over">Börja om!</div>
+        <div class="center-text refresh-container">
+          <div class="empty-array-text">Åh, nej! Slut på roliga, trevliga, mysiga och helt underbara dejtställen!</div>
+          <div class="empty-array-text">Öppna ditt hjärta och börja om..</div>
+          <div @click="refreshVenues"><img src="~/assets/images/love.png" class="cta-icon"></div>
         </div>
       </div>
 
@@ -91,6 +94,7 @@ export default {
     data() {
       return {
         venues: [],
+        venuesForLater: [],
         venue: [],
         showInfo: false, 
       }
@@ -110,6 +114,7 @@ export default {
               'price': doc.data().price
             }
             this.venues.push(data)
+            this.venuesForLater.push(data)
           })
         }).then(this.randomVenue.bind(this))
     },
@@ -126,6 +131,9 @@ export default {
                 this.venues.splice(i, 1); 
             }
           }
+        },
+        refreshVenues () {
+          this.venues = Array.from(this.venuesForLater)
         }
     },
     components: {
@@ -275,8 +283,14 @@ export default {
   width: 100%;
   height: 100vh;
 }
+
+.empty-array-img {
+  max-width: 100%;
+  border-radius: 5px;
+  margin: 2rem 0;
+}
+
 .empty-array-inner-container {
-  height: 90vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -284,13 +298,12 @@ export default {
 .empty-array-text {
   width: 100%;
 }
-.start-over {
-  width: 100%;
-  color: blue
-}
 
-.start-over:hover {
-  color: pink;
+.refresh-container {
+  font-size: 1.3rem;
+}
+.refresh-container div{ 
+  padding: 1rem;
 }
 
 .center-text {
@@ -346,6 +359,7 @@ export default {
 @media (min-width: 992px) {
   .container, .container-sm, .container-md, .container-lg {
       max-width: 600px;
+      box-shadow: 0px 0px 18px -3px rgba(92,92,92,1);
   }
 }
 
