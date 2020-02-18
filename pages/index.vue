@@ -143,7 +143,7 @@ export default {
 
 <style>
 .first-look-container {
-  height: 100vh;
+  height: 100%;
 }
 
 .block-1{
@@ -355,10 +355,11 @@ export default {
 /* LARG SCREEN */
 
 @media (min-width: 992px) {
-  .container, .container-sm, .container-md, .container-lg {
+  .container {
       max-width: 600px;
       box-shadow: 0px 0px 18px -3px rgba(92,92,92,1);
   }
+
 }
 
 </style>
