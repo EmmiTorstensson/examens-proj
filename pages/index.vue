@@ -11,17 +11,15 @@
                 class="venue-image" 
                 :style="{ backgroundImage: 'url(' +  venue.image + ')'}">
             </div>
-            <div>
-              <img src="~/assets/images/info-icon.png" class="info-icon">
-            </div>
+      
 
 
           <div class="text-content-container" v-show="!showInfo">
 
             <div class="venue-name">{{ venue.name }}  
-              <button>
+              <div>
                 <img src="~/assets/images/info-icon.png" class="info-icon" @click="showInfo = !showInfo">
-              </button>
+              </div>
             </div>
 
             <div class="venue-street">
