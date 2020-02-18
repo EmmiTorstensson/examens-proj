@@ -11,8 +11,7 @@
                 class="venue-image" 
                 :style="{ backgroundImage: 'url(' +  venue.image + ')'}">
             </div>
-      
-
+    
 
           <div class="text-content-container" v-show="!showInfo">
 
