@@ -13,7 +13,7 @@
   "dependencies": {
     "bootstrap-vue": "^2.4.0",
     "firebase": "^7.7.0",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.15.8",
     "vue-social-sharing": "^2.4.7"
   },
   "devDependencies": {
